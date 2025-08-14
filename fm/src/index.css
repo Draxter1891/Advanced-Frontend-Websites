@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+body {
+  background-color: #111;
+  color: #fff;
+  padding: 30px;
+}
+.box {
+  display: flex;
+  width: 150px;
+  height: 150px;
+  background-color: rgb(152, 55, 243);
+  border-radius: 20%;
+  justify-content: center;
+  align-items: center;
+}
