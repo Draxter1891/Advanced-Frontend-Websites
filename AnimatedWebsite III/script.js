@@ -42,7 +42,7 @@
 let cursor = document.querySelector(".cursor");
 
 let main = document.querySelector(".main");
-main.addEventListener("mousemove", function (dets) {
+document.addEventListener("mousemove", function (dets) {
   cursor.style.left = dets.x + "px";
   cursor.style.top = dets.y + "px";
   // console.log(dets);
@@ -63,12 +63,30 @@ document
     cursor.style.borderRadius = `${50}%`;
   });
 
+gsap.from(".page1 h1,.page1 h2", {
+  y: 10,
+  rotate: 10,
+  opacity: 0,
+  delay: 0.3,
+  duration: 0.7,
+});
+
 let tl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".page1 h1",
+    trigger: ".page1 h2",
     scroller: ".main",
     start: "top 25%",
     end: "top 0",
+    // markers: true,
+    scrub: 3,
+  },
+});
+let tl1 = gsap.timeline({
+  scrollTrigger: {
+    trigger: "video",
+    scroller: ".main",
+    start: "top 50%",
+    end: "top 20%",
     // markers: true,
     scrub: 3,
   },
@@ -98,7 +116,7 @@ tl.to(
   "anim"
 );
 
-tl.to(
+tl1.to(
   ".page1 video",
   {
     width: "90%",
@@ -106,7 +124,7 @@ tl.to(
   "anim"
 );
 tl2.to(".main", {
-  backgroundColor: "#c1fff7ff",
+  backgroundColor: "#dffffbff",
 });
 
 let tl3 = gsap.timeline({
@@ -122,4 +140,45 @@ let tl3 = gsap.timeline({
 
 tl3.to(".main", {
   backgroundColor: "#0f0d0d",
+});
+
+let boxes = document.querySelectorAll(".box");
+boxes.forEach(function (elem) {
+  elem.addEventListener("mouseenter", function () {
+    let imgURL = elem.getAttribute("image-data");
+    cursor.style.height = "300px";
+    cursor.style.width = "350px";
+    cursor.style.borderRadius = "0";
+    cursor.style.backgroundImage = `url(${imgURL})`;
+  });
+  elem.addEventListener("mouseleave", function () {
+    elem.style.backgroundColor = "transparent";
+    cursor.style.height = "15px";
+    cursor.style.width = "15px";
+    cursor.style.borderRadius = "50%";
+    cursor.style.backgroundImage = `none`;
+  });
+});
+
+let nav = document.querySelector("nav");
+var h4 = document.querySelectorAll(".nav-p2 h4");
+var purple = document.querySelector(".purple");
+h4.forEach(function (elem) {
+  elem.addEventListener("mouseenter", function () {
+    let text = elem.textContent;
+    console.log();
+
+    purple.style.opacity = "1";
+    purple.style.display = "flex";
+    purple.style.alignItems = "center";
+    purple.style.justifyContent = "center";
+    purple.innerHTML = `<marquee style="font-size:200px; align-self: center; color: #111" behaviour="scroll" scrollamount= "30" direction="left"> ${text.repeat(
+      10
+    )}</marquee>`;
+  });
+  nav.addEventListener("mouseleave", function () {
+    purple.innerHTML = "";
+    purple.style.display = "none";
+    purple.style.opacity = "0";
+  });
 });
